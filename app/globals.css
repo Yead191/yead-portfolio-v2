@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #F0F2F7;
+    --bg-secondary: #E2E6EF;
+    --bg-card: #FFFFFF;
+    --text: #0A0C14;
+    --text-muted: #4A5568;
+    --text-faint: #718096;
+    --accent: #E8190A;
+    --accent-2: #F5C400;
+    --border: #CBD5E0;
+    --border-subtle: #E2E8F0;
+    --chrome: #8A9BB0;
+    --nav-bg: rgba(240,242,247,0.85);
+  }
+
+  .dark {
+    --bg: #0A0C14;
+    --bg-secondary: #111420;
+    --bg-card: #141720;
+    --text: #E8EBF4;
+    --text-muted: #8A9BB0;
+    --text-faint: #4A5568;
+    --accent: #E8190A;
+    --accent-2: #F5C400;
+    --border: #1E2535;
+    --border-subtle: #161B28;
+    --chrome: #8A9BB0;
+    --nav-bg: rgba(10,12,20,0.85);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ── Selection ── */
+::selection { background: var(--accent); color: #fff; }
+
+/* ── Utility classes ── */
+.font-orbitron { font-family: var(--font-orbitron), sans-serif; }
+.font-rajdhani { font-family: var(--font-rajdhani), sans-serif; }
+.font-mono { font-family: var(--font-mono), monospace; }
+
+/* ── TF Corner box ── */
+.tf-corner {
+  position: relative;
+}
+.tf-corner::before,
+.tf-corner::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--accent);
+  border-style: solid;
+}
+.tf-corner::before {
+  top: 0; left: 0;
+  border-width: 2px 0 0 2px;
+}
+.tf-corner::after {
+  bottom: 0; right: 0;
+  border-width: 0 2px 2px 0;
+}
+
+/* ── Section heading underline ── */
+.section-title {
+  position: relative;
+  display: inline-block;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 40%;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* ── Scanline overlay on preloader ── */
+.scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+}
+
+/* ── Hex grid background ── */
+.hex-bg {
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+/* ── Card hover border glow ── */
+.card-glow {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-glow:hover {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 20px rgba(232, 25, 10, 0.12);
+}
+
+/* ── Skill pill ── */
+.skill-pill {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+.skill-pill:hover {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+  background: var(--bg);
+}
+
+/* ── Nav underline indicator ── */
+.nav-link {
+  position: relative;
+  font-family: var(--font-orbitron), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.nav-link:hover { color: var(--text); }
+.nav-link:hover::after { width: 100%; }
+.nav-link.active { color: var(--accent); }
+.nav-link.active::after { width: 100%; }
+
+/* ── Preloader ── */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #0A0C14;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Timeline dot ── */
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 0;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ── Hide overflow on modal open ── */
+body.modal-open { overflow: hidden; }
+
+/* ── Subtle noise texture ── */
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px;
+}
